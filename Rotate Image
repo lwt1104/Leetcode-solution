@@ -1,0 +1,16 @@
+public class Solution {
+    public void rotate(int[][] matrix) {
+        if(matrix==null||matrix.length<=1) return ;
+        int len=matrix.length;
+        for(int start=0,end=len-1;start<end;start++,end--){
+             for(int k=start;k<end;k++){
+                 int temp=matrix[start][k];
+                 matrix[start][k]=matrix[len-1-k][start];
+                 matrix[len-1-k][start]=matrix[end][len-1-k];
+                 matrix[end][len-1-k]=matrix[k][end];
+                 matrix[k][end]=temp;
+             }
+        }
+        
+    }
+}
