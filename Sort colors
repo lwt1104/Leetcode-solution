@@ -1,0 +1,28 @@
+public class Solution {
+    public void sortColors(int[] A) {
+        int index0=0,index2=A.length-1,current=0;
+        while(current<index2+1){
+            if(A[current]==0){
+               if(current==index0){
+                   index0++;
+                   current++;
+               }    
+               else{
+                   int temp=A[current];
+                   A[current]=A[index0];
+                   A[index0++]=temp;
+               }
+            }
+            else if(A[current]==1) current++;
+            else if(A[current]==2){
+                if(current==index2) current++;
+                else{
+                    int temp=A[current];
+                    A[current]=A[index2];
+                    A[index2--]=temp;
+                }
+            }
+            
+        }
+    }
+}
