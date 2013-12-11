@@ -1,0 +1,25 @@
+public class Solution {
+    public int[][] generateMatrix(int n) {
+        int [][] A=new int[n][n];
+        int layer=0,len=A.length;
+        int count=1;
+        while(layer< len-1-layer){
+            //first from left to right
+            for(int i=layer;i<len-1-layer;i++,count++) 
+            A[layer][i]=count;
+            //from top to down
+            for(int i=layer;i<len-1-layer;i++,count++)
+            A[i][len-1-layer]=count;
+            //from right to left
+            for(int i=len-1-layer;i>layer;i--,count++)
+            A[len-1-layer][i]=count;
+            //from bottom to top
+            for(int i=len-1-layer;i>layer;i--,count++)
+            A[i][layer]=count;
+            
+            layer++;
+        }
+        if(layer==len-1-layer) A[layer][layer]=count;
+        return A;
+    }
+}
