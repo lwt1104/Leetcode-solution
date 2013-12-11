@@ -1,0 +1,29 @@
+public class Solution {
+    public ArrayList<Integer> getRow(int rowIndex) {
+        ArrayList<Integer> arr=new ArrayList<Integer>();
+        ArrayList<Integer> newArr=new ArrayList<Integer>();
+        if(rowIndex<0) return arr;
+        if(rowIndex==0){arr.add(1); return arr;}
+        arr.add(1);arr.add(1);
+        if(rowIndex==1) return arr;
+        int row=2;
+        ArrayList<Integer> current=null;
+        ArrayList<Integer> prev=null;
+        while(row<=rowIndex){
+            if(row%2==0){
+                current=newArr;
+                prev=arr;
+            }
+            else{
+                current=arr;
+                prev=newArr;
+            }
+            current.clear();current.add(1);
+            for(int i=1;i<row;i++) current.add(prev.get(i)+prev.get(i-1));
+            current.add(1);
+            row++;
+        }
+        
+        return current;
+    }
+}
