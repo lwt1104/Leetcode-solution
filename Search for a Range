@@ -1,0 +1,18 @@
+public class Solution {
+    public int[] searchRange(int[] A, int target) {
+        int l=0,r=A.length-1,m=0;
+        //first binary search to find the target
+        while(l<=r){
+            m=(l+r)/2;
+            if(A[m]==target) break;
+            if(A[m]>target) r=m-1;
+            else l=m+1;
+        }
+        if(l>r) return new int[]{-1,-1};
+        //we find target, then find the left and right boundary
+        l=m; r=m;
+        while(l-1>=0&&A[l-1]==target) l--;
+        while(r+1<A.length&&A[r+1]==target) r++;
+        return new int[]{l,r};
+    }
+}
