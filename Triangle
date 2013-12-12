@@ -1,0 +1,25 @@
+public class Solution {
+    public int minimumTotal(ArrayList<ArrayList<Integer>> triangle) {
+        ArrayList<Integer> path=new ArrayList<Integer> ();
+        ArrayList<Integer> pathPre=new ArrayList<Integer> ();
+        if(triangle.size()==1) return triangle.get(0).get(0).intValue();
+        pathPre.add(triangle.get(0).get(0));
+        int depth=1;
+        while(depth<triangle.size()){
+            path.add(pathPre.get(0)+triangle.get(depth).get(0));
+            for(int i=1;i<triangle.get(depth).size()-1;i++){
+                if(pathPre.get(i-1)<pathPre.get(i))
+                path.add(triangle.get(depth).get(i)+pathPre.get(i-1));
+                else path.add(triangle.get(depth).get(i)+pathPre.get(i));
+            }
+            path.add(pathPre.get(pathPre.size()-1)+triangle.get(depth).get(triangle.get(depth).size()-1));
+            pathPre=path;
+            path=new ArrayList<Integer>();
+            depth++;
+        }
+        //search the mininum value of last row;
+        int sum=Integer.MAX_VALUE;
+        for(int i=0;i<pathPre.size();i++) if(pathPre.get(i)<sum) sum=pathPre.get(i).intValue();
+        return sum;
+    }
+}
