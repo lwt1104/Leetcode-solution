@@ -1,0 +1,32 @@
+public class Solution {
+    public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {
+        ArrayList<ArrayList<Integer>> arr=new ArrayList<ArrayList<Integer>>();
+        if(candidates==null ||candidates.length<=0) return arr;
+        java.util.Arrays.sort(candidates);
+        sumHelper(arr,candidates,target,new ArrayList<Integer>(),0,0);
+        return arr;
+    }
+    private void sumHelper(ArrayList<ArrayList<Integer>> arr,int[] candidates,int target,ArrayList<Integer> list,int index,int sum){
+        if(sum>target) return ;
+        if(sum==target){
+            ArrayList<Integer> temp=new ArrayList<Integer>();
+            for(int i=0;i<list.size();i++) temp.add(list.get(i));
+            arr.add(temp);
+            return ;
+        }
+        //sum<target
+        int i=index;
+        while(i<candidates.length){
+            if(i+1<candidates.length && candidates[i]==candidates[i+1]){
+                i++;continue;
+            }
+            sum+=candidates[i];
+            list.add(candidates[i]);
+            sumHelper(arr,candidates,target,list,i,sum);
+            sum-=candidates[i];
+            list.remove(list.size()-1);
+            i++;
+        }
+        
+    }
+}
