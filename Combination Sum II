@@ -1,0 +1,30 @@
+public class Solution {
+    public ArrayList<ArrayList<Integer>> combinationSum2(int[] num, int target) {
+       java.util.Arrays.sort(num);
+       ArrayList<ArrayList<Integer>> arr=new ArrayList<ArrayList<Integer>>();
+       if(target<=0) return arr;
+       sum2Helper(arr,0,0,num,target,new ArrayList<Integer>());
+       return arr;
+    }
+    
+    private void sum2Helper(ArrayList<ArrayList<Integer>> arr,int sum,int index,int []num,int target,ArrayList<Integer> list){
+        if(sum>target) return ;
+        if(sum==target){
+            ArrayList<Integer> temp=new ArrayList<Integer>();
+            for(int i=0;i<list.size();i++) temp.add(list.get(i));
+            arr.add(temp);
+            return ;
+        }
+        //if sum<target
+        for(int i=index;i<num.length;i++){
+         if(i>index && num[i]==num[i-1]) continue;   
+        
+            sum+=num[i];
+            list.add(num[i]);
+            sum2Helper(arr,sum,i+1,num,target,list);
+            list.remove(list.size()-1);
+            sum-=num[i];
+        }
+        return ;
+    }
+}
