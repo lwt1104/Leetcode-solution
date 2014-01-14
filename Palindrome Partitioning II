@@ -1,0 +1,33 @@
+public class Solution {
+    public int minCut(String s) {
+        if(s.length()<=1) return 0;
+        boolean[][] isP=new boolean[s.length()][s.length()];
+        for(int len=0;len<isP.length;len++){
+            for(int i=0;i+len<isP.length;i++){
+                if(s.charAt(i)==s.charAt(i+len)&&(i+1>=i+len-1||isP[i+1][i+len-1]))
+                    isP[i][i+len]=true;
+            }
+        }
+        //then BFS to find the minimum cuts
+        boolean[] visit=new boolean[s.length()];
+        LinkedList<Integer> qIndex=new LinkedList<Integer>();
+        LinkedList<Integer> qCut=new LinkedList<Integer>();
+        qIndex.offer(0);
+        qCut.offer(0);
+        visit[0]=true;
+        while(!qIndex.isEmpty()){
+            int index=qIndex.poll(),cut=qCut.poll();
+            for(int i=index;i<visit.length;i++){
+                if(isP[index][i]){
+                    if(i==visit.length-1) return cut;
+                    else if(!visit[i+1]){
+                        visit[i+1]=true;
+                        qIndex.offer(i+1);
+                        qCut.offer(cut+1);
+                    }
+                }
+            }
+        }
+        return s.length()-1;
+    }
+}
