@@ -1,0 +1,28 @@
+public class Solution {
+    public ArrayList<String[]> solveNQueens(int n) {
+        ArrayList<String[]> arr=new  ArrayList<String[]>();
+        if(n<=0) return arr;
+        ArrayList<String> list=new ArrayList<String>();
+        queenHelper(n,0,arr,list,0,0,0);
+        return arr;
+    }
+    private void queenHelper(int n,int level,ArrayList<String[]> arr,ArrayList<String> list,int up,int left, int right){
+        if(level==n){
+            String[] temp=new String[n];
+            for(int i=0;i<n;i++) temp[i]=list.get(i);
+            arr.add(temp);
+            return ;
+        }
+        for(int i=0;i<n;i++){
+            int pos=1<<i;
+            if((pos&(up|left|right))==0){
+                char []temp=new char[n];
+                Arrays.fill(temp,'.');
+                temp[n-1-i]='Q';
+                list.add(new String(temp));
+                queenHelper(n,level+1,arr,list,up|pos,(left|pos)<<1,(right|pos)>>1);
+                list.remove(list.size()-1);
+            }
+        }
+    }
+}
